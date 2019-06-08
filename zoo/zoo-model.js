@@ -14,12 +14,23 @@ const knexConfig = {
 
   module.exports = {
     find,
- //   findById,
- //   add,
+    findById,
+    add,
  //   update,
  //   remove,
 }
 
 function find() {
     return db('zoos'); 
+}
+
+function findById(id) {
+    return db('zoos')
+        .where({id})
+        .first();
+}
+
+async function add(newZooItem){
+    const [id] = await db('zoos').insert(newZooItem);
+    return findById(id);
 }
