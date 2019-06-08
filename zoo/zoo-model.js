@@ -16,8 +16,8 @@ const knexConfig = {
     find,
     findById,
     add,
- //   update,
- //   remove,
+    update,
+    remove,
 }
 
 function find() {
@@ -33,4 +33,16 @@ function findById(id) {
 async function add(newZooItem){
     const [id] = await db('zoos').insert(newZooItem);
     return findById(id);
+}
+
+function update(id, changedZooName) {
+    return db('zoos')
+        .where({id})
+        .update(changedZooName, '*');
+}
+
+function remove(id) {
+    return db('zoos')
+        .where({id})
+        .del();
 }

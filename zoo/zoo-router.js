@@ -20,10 +20,10 @@ router.get('/:id', (req, res) => {
     Zoos.findById(id)
     .then(zooName => {
         if(zooName){
-            res.status(200).json.zooName;
+            res.status(200).json(zooName);
         } else {
             res.status(404).json({
-                message: `zooName does not exist`
+                message: `zoo with id ${id} does not exist`
             })
         }
     })
@@ -51,9 +51,46 @@ router.post('/', (req, res) => {
     })
 })
 
+router.put('/:id', (req, res)=> {
+    const {id} = req.params;
+    const zooNameChange = req.body;
 
+    Zoos.update(id, zooNameChange)
+    .then(totalZoos => {
+        if(totalZoos > 0){
+            res.status(200).json({
+                message: `${totalZoos} updated`
+            })
+        } else {
+            res.status(404).json({
+                message: //`the zoo id with ${id} does not exist,
+                    `Please add new zoo with name ${zooNameChange.name} to database before trying to update name`
+            })
+        }
+    }) 
+    .catch(err => {
+        res.status(500).json(err);
+    })
 
+});
 
+router.delete('/:id', (req,res) => {
+    const {id} = req.params;
 
+    Zoos.remove(id)
+    .then(totalZoos => {
+        if(totalZoos > 0) {
+            const unit = totalZoos > 1 ? 'zoos' : 'zoo';
+            res.status(200).json({
+                messge: ` ${totalZoos} ${unit} deleted from database`
+            })
+        } else {
+            res.status(404).json({message: `Zoo with id ${id} not found`});
+        }
+    })
+    .catch(err => {
+        res.status(500).json(err)
+    })
+})
 
-  module.exports = router;
+module.exports = router;
