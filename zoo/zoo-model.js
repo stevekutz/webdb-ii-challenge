@@ -1,6 +1,10 @@
+/*   MOVED THIS to dbConfig & knexfile
+
+// >>>> went to dbConfig.js
 const knex = require('knex'); 
 
 // THIS installs knex and specific driver needed
+//  >>>> went to knexfile
 const knexConfig = {
     client: 'sqlite3',    // this would change if we were connecting to MySQL, etc.
     connection: {
@@ -11,6 +15,8 @@ const knexConfig = {
   }
   
   const db = knex(knexConfig);
+*/
+const db = require('../data/dbConfig');
 
   module.exports = {
     find,
