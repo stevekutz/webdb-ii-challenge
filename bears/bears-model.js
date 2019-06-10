@@ -6,6 +6,7 @@ module.exports = {
     findBearsById,
     addBears,
     changeBear,
+    nukeBear
 }
 
 function findBears() {
@@ -27,4 +28,10 @@ function changeBear(id, bearUpdate) {
     return dbStretch('bears')
         .where({id})
         .update(bearUpdate);
+}
+
+function nukeBear(id) {
+    return dbStretch('bears')
+        .where({id})
+        .del();
 }

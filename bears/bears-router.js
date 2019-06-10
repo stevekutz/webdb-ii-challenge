@@ -70,9 +70,28 @@ router.put('/:id', (req, res) => {
         .catch(err => {
             res.status(500).json(err)
         })
-    
 })
 
+// DELETE uses 'nukebear' from bear-model.js
+router.delete('/:id', (req, res) => {
+    const {id} = req.params;
+
+    Bears.nukeBear(id)
+    .then(bearGone => {
+        if(bearGone) {
+            res.status(200).json({
+                message: ` bear with id ${id} nuked`
+            })
+        } else {
+            res.status(404).json({
+                messge: `bear not found`
+            })
+        }
+    })
+    .catch(err => {
+        res.status(500).json(err);
+    })
+})
 
 
 // DON'T FORGET TO EXPORT
