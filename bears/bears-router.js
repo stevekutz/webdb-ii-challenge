@@ -50,6 +50,29 @@ router.post('/', (req, res) => {
         })
 })
 
+// PUT uses 'changeBear' from bears-model.js
+router.put('/:id', (req, res) => {
+    const {id} = req.params;
+    const bearUpdateInfo = req.body;
+
+    Bears.changeBear(id, bearUpdateInfo)
+        .then(totalBears => {
+            if(totalBears > 0) {
+                res.status(200).json({
+                    message: ` ${totalBears} updated`
+                });
+            } else {
+                res.status(404).json({
+                    message: `bear with id ${id} not here`
+                })
+            }
+        }) 
+        .catch(err => {
+            res.status(500).json(err)
+        })
+    
+})
+
 
 
 // DON'T FORGET TO EXPORT
