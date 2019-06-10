@@ -19,7 +19,7 @@ const knexConfig = {
 
 const db = require('../data/dbConfig');
 
-// ALL of thee methods resolve to a promise
+// ALL of these methods resolve to a promise
   module.exports = {
     find,
     findById,
@@ -28,13 +28,8 @@ const db = require('../data/dbConfig');
     remove,
 }
 
-function find() {
-/*
-    knex
-        .from('zoos')
-        .select('name');
-*/  
 // like saying SELECT * from zoos
+function find() {
  return db('zoos'); 
 }
 
@@ -61,21 +56,23 @@ async function add(newZooItem){
 }
 */
 
- // Another way
+ // Another way to add
 function add(newZooItem) {
     return db('zoos')
         .insert(newZooItem);
         .into('roles');   // WHY is this needed ?
 }
 
-// 
+// like saying 
+//  UPDATE zoos set name = "changed whatever" where id = id
 function update(id, changedZooName) {
     return db('zoos')
         .where({id})  //.where('id', id)
        // .update(changedZooName, '*');
-        .update(changedZooName);
+        .update(changedZooName);  // what does * do?
 }
 
+// like saying DELETE from zoos where id = id
 function remove(id) {
     return db('zoos')
         .where({id})

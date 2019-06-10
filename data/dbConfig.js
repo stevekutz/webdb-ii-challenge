@@ -1,6 +1,6 @@
 const knex = require('knex');
 
-// 
-const configOptions = require('../zoo/knexfile').development;
+// ALWAYS keep knexfile in ROOT
+const configOptions = require('../knexfile').development;
 
 module.exports = knex(configOptions);
