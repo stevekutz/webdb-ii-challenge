@@ -31,6 +31,8 @@ const db = require('../data/dbConfig');
 // like saying SELECT * from zoos
 function find() {
  return db('zoos'); 
+ // return knex.select().table('zoos');   ;  // Does not work
+ // return knex('zoos');
 }
 
 // like saying SELECT * from zoos where id  = id
@@ -39,7 +41,7 @@ function findById(id) {
         //.where({id});  //.where('id', id)   also works
         .where('id', id);
         //  WHY is first() needed? WORKS without
-        .first();   // Sets the column to be inserted on the first position, only used in MySQL alter tables.
+        //.first();   // Sets the column to be inserted on the first position, only used in MySQL alter tables.
 }
 
 
@@ -60,7 +62,7 @@ async function add(newZooItem){
 function add(newZooItem) {
     return db('zoos')
         .insert(newZooItem);
-        .into('roles');   // WHY is this needed ?
+        //.into('roles');   // WHY is this needed ?
 }
 
 // like saying 
@@ -73,8 +75,17 @@ function update(id, changedZooName) {
 }
 
 // like saying DELETE from zoos where id = id
+/*
 function remove(id) {
     return db('zoos')
         .where({id})
         .del();
+}
+*/
+
+// THIS WORKS !!
+function remove(id){
+    return knex
+    .where({id})
+    .del();
 }

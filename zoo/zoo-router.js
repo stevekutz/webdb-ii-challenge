@@ -51,6 +51,7 @@ router.post('/', (req, res) => {
     })
 })
 
+// PUT uses 'update' from zoo-model.js
 router.put('/:id', (req, res)=> {
     const {id} = req.params;
     const zooNameChange = req.body;
@@ -74,6 +75,7 @@ router.put('/:id', (req, res)=> {
 
 });
 
+// DELETE uses 'remove' from zoo-model.js
 router.delete('/:id', (req,res) => {
     const {id} = req.params;
 
@@ -93,4 +95,5 @@ router.delete('/:id', (req,res) => {
     })
 })
 
+// DON'T FORGET TO EXPORT
 module.exports = router;
